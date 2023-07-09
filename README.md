@@ -100,6 +100,24 @@ Output:
 {"data":{"prob":[[["Shopping",0.6422143460736127],["Medical",0.18530665751017797],["Travel",0.11028613262101186]],[["Medical",0.9988152915012749],["Subscription",0.0006008496836324658],["Shopping",0.0004127586966547764]]]},"result":"success"}
 ```
 ### Results Comparision
+1. Since we have used User as a feature let us see the effect in the probabilty score when the user is in the training vs when he is not <br>
+![image](https://github.com/RheagalFire/categorization_engine_bank_txn/assets/60213893/2c94b0fb-9179-40fb-9b40-71ad522b9001)
+![image](https://github.com/RheagalFire/categorization_engine_bank_txn/assets/60213893/07a6fc67-1cfe-44e1-b88a-c2b66ebe2856)<br>
+In the Above image you User2 is in the training data and user200 isn't so there is a decrease of 10% confidence.
+
+2. Since we are using embeddings similar things should be close to each other. SO let us try sending a request for Anjana Sweets which is not in our training set.<br>
+![image](https://github.com/RheagalFire/categorization_engine_bank_txn/assets/60213893/5e6f3f54-ea13-41b2-b0ba-c455eb3e7947)<br>
+We see that it is able to correctly predict the tag for Anjana Sweets. 
+   
+4. Where it fails<br>
+![image](https://github.com/RheagalFire/categorization_engine_bank_txn/assets/60213893/805ec7fb-59ed-45f6-9a28-d6baae9bf12e)
+![image](https://github.com/RheagalFire/categorization_engine_bank_txn/assets/60213893/5caf0432-26d0-4ded-b5e1-4cbaaaa828f2)<br>
+
+The embeddings space are not contextual enough to place `zomato` and `swiggy` in the same context. 
+We could do several things here
+- Try with another set of embeddings which is particulary tuned for this. 
+- Make an Embedding model ourselves by labelling enough such data points. 
+ 
 
 
 
