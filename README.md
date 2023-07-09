@@ -50,3 +50,16 @@ The results were very impressive. The constraints to this approach would require
 
 We need to answer the above questions before moving on to use this to extract merchant from the transaction. You can follow along this [notebook](notebooks/Merchant_Extraction_From_Langchain.ipynb) to see how to extract merchant from the transaction query using langchain and chatgpt.
 
+### Embeddings/Features Creation
+So to create our featureset, we are going to use embeddings to represent our transaction words into contextual vectors.(Similar words would have similar vector space)
+Now for the purpose of this project i did not experimented with something large. 
+What i kept in mind were these 
+- Multillingual Embeddings
+- Small Size of the embedding model
+- Good Accuracy across the MTEB board
+So I head over to the MTEB board to find such model and i ended up choosing <b>all-MiniLM-L6-v2</b>
+![image](https://github.com/RheagalFire/categorization_engine_bank_txn/assets/60213893/0e13af41-0383-47dc-b4bd-e2fb68cac40d) <br>
+
+The chosen embedding model projects our transactions to a vector space of <b>384 dimensions</b> where we have used each dimension as a featureset.<br>
+
+Head over to this [notebook](notebooks/2-Embeddings%20Creation.ipynb) to follow how i create embeddings from the transactional queries.
