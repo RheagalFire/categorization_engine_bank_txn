@@ -8,8 +8,11 @@ from utils import cleaning
 import re
 
 class feature_creator():
-    def __init__(self, fpath_data_input='data/synthetic_data.csv', fpath_output='assests'):
-        self.synthetic_data = pd.read_csv(fpath_data_input)
+    def __init__(self, fpath_data_input='data/synthetic_data.csv', fpath_output='assets',inference=False):
+        if (inference):
+           self.inference = True
+        else:
+            self.synthetic_data = pd.read_csv(fpath_data_input)
         self.model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
         self.fpath_output = fpath_output
 
@@ -73,5 +76,5 @@ class feature_creator():
 
     def get_data_for_inference(self, inference_df):
         inference_df = self.preprocessing(inference_df)
-        embeddings_dataset = self.create_clean_embeddings(inference_df,inferencing=True)
+        embeddings_dataset = self.create_clean_embeddings(inference_df,inferencing=self.inference)
         return embeddings_dataset.drop(columns=['User','Transaction'])
