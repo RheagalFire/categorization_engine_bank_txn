@@ -81,5 +81,25 @@ Inferencing is pretty simple, we use the same module [feature_generator.py](feat
 - Preprocess/clean the data , the way we did at the time of the training.
 - We check if the user is already in the userbase and the model was trained on the data by that user. If now we assign the user a value of -1.
 - Predict out top three labels with probability score.<br>
-  Follow this [notebook](notebooks/4-Inference.ipynb) to walkthrough how inferencing is done. 
+  Follow this [notebook](notebooks/4-Inference.ipynb) to walkthrough how inferencing is done.
+  
+### Deploying as an API endpoint
+I built a [flask app](app.py) around the inference module and [contanirized](Dockerfile) it for hosting it.<br>
+I have used ECS service from AWS to host the Dockerimage. 
+![image](https://github.com/RheagalFire/categorization_engine_bank_txn/assets/60213893/0de0f034-0f7b-4d83-8c88-e4243c28050c)<br>
+Have used default scaling and security groups.
+
+API ENDPOINT : http://13.233.3.50:8080/predict_tag
+
+To send a sample request through CURL
+```
+curl -X POST http://13.233.3.50:8080/predict_tag -H "Content-Type: application/json" -d "{\"users\": [\"User200\", \"User3\"], \"transactions\":[\"POS XXXXXXXXXXXX1111 IKEA INDIA PVT L\", \"POS XXXXXXXXXXXX1111 APOLLO PHARMACY PVT L\"]}"
+```
+Output:
+```
+{"data":{"prob":[[["Shopping",0.6422143460736127],["Medical",0.18530665751017797],["Travel",0.11028613262101186]],[["Medical",0.9988152915012749],["Subscription",0.0006008496836324658],["Shopping",0.0004127586966547764]]]},"result":"success"}
+```
+### Results Comparision
+
+
 
