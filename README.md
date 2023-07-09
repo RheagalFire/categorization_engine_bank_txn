@@ -63,3 +63,15 @@ So I head over to the MTEB board to find such model and i ended up choosing <b>a
 The chosen embedding model projects our transactions to a vector space of <b>384 dimensions</b> where we have used each dimension as a featureset.<br>
 
 Head over to this [notebook](notebooks/2-Embeddings%20Creation.ipynb) to follow how i create embeddings from the transactional queries.
+
+### Training Pipeline 
+Training is kept quite simple because we are working with synthetic data. I have decided to go with <b>Bagging</b> Approach using `SVC` and `Gradient Boosting` Algo. I do a Randomized Search CV on hyperparameters to find out the best hyperparameter store the test results and model file in the assests folder. 
+[trainer.py](trainer.py) is the module where you can find the code for training the model. 
+Some of the things that i kept in mind while preparing the data for training : 
+- Using user_id as a feature in itself. We want to add the past preferences by the user to increase the chances of tag prediction for that use.
+- Split the train/test stratified on the user_id. We want to keep all the users in our training set as it is essential for our model to make predictions based on previous taggings.
+- Since this data is synthetically created and for every user we have similar places and transactions (although with different noises),this model is definately going to overfit.<br>
+![image](https://github.com/RheagalFire/categorization_engine_bank_txn/assets/60213893/311ed93d-cc06-4fdf-b6c4-22260b860a59) <br>
+This has clearly overfitted. (Because of common keywords for multiple users). But we are not benchmarking scores on synthetic data. It would make sense to do
+so when we have large amount of actual transaction data.<br>.The training took approx <b>6 mins</b> to be completed. 
+You can follow along this [notebook](notebooks/3-Training%20Pipeline.ipynb) to see how you can train on the synthetic data.
