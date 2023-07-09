@@ -75,3 +75,11 @@ Some of the things that i kept in mind while preparing the data for training :
 This has clearly overfitted. (Because of common keywords for multiple users). But we are not benchmarking scores on synthetic data. It would make sense to do
 so when we have large amount of actual transaction data.<br>.The training took approx <b>6 mins</b> to be completed. 
 You can follow along this [notebook](notebooks/3-Training%20Pipeline.ipynb) to see how you can train on the synthetic data.
+
+### Inferencing 
+Inferencing is pretty simple, we use the same module [feature_generator.py](feature_generator.py) that was used at the time of the training but with the inference settings to create features.For the pipeline refer to this [inference pipeline](inference.py). At the time of the inferencing we 
+- Preprocess/clean the data , the way we did at the time of the training.
+- We check if the user is already in the userbase and the model was trained on the data by that user. If now we assign the user a value of -1.
+- Predict out top three labels with probability score.<br>
+  Follow this [notebook](notebooks/4-Inference.ipynb) to walkthrough how inferencing is done. 
+
